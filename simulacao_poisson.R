@@ -1,29 +1,29 @@
 # o R como calculadora
 
-binomialnegSimulacao <- rnbinom(300, mu = 3, size = 10)
+binomialnegSimulacao <- rnbinom(500, mu = 3, size = 10)
 
-poissonSimulacao <- rpois(300, 3)
+poissonSimulacao <- rpois(500, 3)
 
 hist(binomialnegSimulacao)
 hist(poissonSimulacao)
 
-binomialnegSimulacao + poissonSimulacao # soma as distribuições
+binomialnegSimulacao + poissonSimulacao 
 
-poissonSimulacao + 100 # soma 100 a cada elemento
+poissonSimulacao + 200 
 
-poissonSimulacao^2 # eleva ao quadrado
+poissonSimulacao^2
 
-poissonSimulacao * binomialnegSimulacao # multiplica
+poissonSimulacao * binomialnegSimulacao 
 
-round(distNormalSimulacao, 0) # arredonda o vetor para inteiros
+round(distNormalSimulacao, 0)
 
-ceiling(distNormalSimulacao) # arredonda para cima
+ceiling(distNormalSimulacao) 
 
-floor(distNormalSimulacao) # arredonda para baixo
+floor(distNormalSimulacao) 
 
 distNormalSimulacao %% poissonSimulacao # módulo dos vetores
 
-# também podemos usar funções estatísticas no R
+
 
 # média
 mean(poissonSimulacao)
@@ -41,7 +41,7 @@ sd(binomialnegSimulacao)
 var(poissonSimulacao)
 var(binomialnegSimulacao)
 
-# uma aplicação prática?? vamos centralizar a nossa simulação poisson
+#  simulação poisson
 poissonSimulacaoCentral <- poissonSimulacao - mean(poissonSimulacao)
 hist(poissonSimulacao)
 hist(poissonSimulacaoCentral)
