@@ -1,22 +1,26 @@
 # vetores
-poissonSimulacao[1] # acessa o primeiro elemento
-poissonSimulacao[c(1:10, 15)] # acessa os elementos 1, 2 até 10 e 15
+poissonSimulacao[1] 
+poissonSimulacao[c(1:10, 15)]
 
 # matrizes
-matrix1[1, ] # linha 1
-matrix1[ ,1] # coluna 1
-matrix1[1,1] # linha 1, coluna 1
-
+matrix1[ ,1] 
+matrix1[1, ] 
+matrix1[1,1] 
+View(mtcars)
 # data.frames
-iris$Species 
+mtcars$Species
 
-iris[ , 5] 
-iris[1:10, 2:5] 
+mtcars[ , 5] 
 
-iris[, 'Species'] 
-iris[, 'Species', drop = FALSE] 
+mtcars[1:10, 2:5]
 
-iris[ , -5] 
+mtcars[, 'mpg'] 
+
+mtcars[, 'mpg', drop = FALSE]
+
+mtcars[ , -5] 
+
+# listas
 regCarros$coefficients
 regCarros$coefficients[1]
 regCarros[['coefficients']][1]
@@ -43,9 +47,10 @@ any(a != c, a < c, a == c)
 all(a != c, a < c, a == c)
 
 # operadores lógicos na prática
-iris$Sepal.Length <= 0 
-iris$Sepal.Length >= 0 & iris$Sepal.Width <= 0.2 
-which(iris$Sepal.Length <= 5) 
+mtcars$Sepal.Length <= 0 
 
-match(iris$Species, 'setosa')
+mtcars$Sepal.Length >= 0 & mtcars$sepal.Width <= 0.2 
 
+which(mtcars$sepal <= 5) 
+
+match(mtcars$sepal, 'setosa') 
