@@ -1,12 +1,4 @@
-# vetores
-poissonSimulacao[1] 
-poissonSimulacao[c(1:10, 15)]
 
-# matrizes
-matrix1[ ,1] 
-matrix1[1, ] 
-matrix1[1,1] 
-View(mtcars)
 # data.frames
 mtcars$Species
 
@@ -53,4 +45,5 @@ mtcars$Sepal.Length >= 0 & mtcars$sepal.Width <= 0.2
 
 which(mtcars$sepal <= 5) 
 
-match(mtcars$sepal, 'setosa') 
+match(mtcars$sepal, 'mpg') 
+
