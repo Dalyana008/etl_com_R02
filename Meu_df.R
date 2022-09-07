@@ -21,3 +21,4 @@ idadeAluno <- round( age_calc( nascimentoMulheres, units = 'years'))
 # data.frame com base nos vetores
 # data.frame com base nos vetores
 meu.df <- data.frame(nomeMulheres,IdadeMulheres,filhosMulheres,nascimentoMulheres)
+
