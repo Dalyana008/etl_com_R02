@@ -4,18 +4,26 @@ library(data.table)
 library(dplyr)
 library(tidyverse)
 
-general_data<-fread("https://covid.ourworldindata.org/data/owid-covid-data.csv") # carrega dados de covid19 no mundo
+general_data <- fread("https://covid.ourworldindata.org/data/owid-covid-data.csv") # carrega dados de covid19 no mundo
 
-latin_america_countries<-c("Argentina", "Brazil", "Bolivia", "Chile", "Colombia", "Costa Rica", "Cuba", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Haiti", "Honduras", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela") # vetor que identifica países latino americanos
+latin_america_countries <-c("Argentina", "Brazil", "Bolivia", "Chile", "Colombia", "Costa Rica", "Cuba", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Haiti", "Honduras", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela") # vetor que identifica países latino americanos
 
-latin_america<- general_data %>% filter(location %in% latin_america_countries) # filtra casos apenas no vetor
+latin_america <- general_data %>% filter(location %in% latin_america_countries) # filtra casos apenas no vetor
 
-mlatin <- latin_america %>% group_by(location) %>% mutate(row = row_number()) %>% select(location, total_vaccinations, total_vaccinations_per_hundred, row) 
+latin_america <- latin_america %>% select(location, new_cases, new_deaths)
 
-# filtra dados para garantir que todos os países tenham mesmo nro de casos
-result <- mlatin %>% group_by(location) %>% filter(row == max(row))
-mlatin <- mlatin %>% filter(row<=min(result$row)) 
+status(latin_america) # estrutura dos dados (missing etc)
+freq(latin_america) # frequência das variáveis fator
+plot_num(latin_america) # exploração das variáveis numéricas
+profiling_num(latin_america) # estatísticas das variáveis numéricas
 
-# pivota o data frame de long para wide
-mlatinw <- mlatin %>% pivot_wider(names_from = row, values_from = total_vaccinations_per_hundred) 
+latin_america %>% filter(new_cases < 0)
+
+latin_america <- latin_america %>% filter(new_cases>=0)
+
+#Retirando os valores NA na coluna de novos casos
+latin_america <- latin_america[!is.na(latin_america$new_cases),]
+
+#Retirando os valores NA na coluna de novos casos fatais
+latin_america <- latin_america[!is.na(latin_america$new_deaths),]
 
