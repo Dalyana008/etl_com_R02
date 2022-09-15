@@ -9,35 +9,42 @@ library(arules)
 library(forcats)
 library(dplyr)  
 
-
+View(USArrests)
 # One hot encoding
 
-iris <- iris
+USArrests <- USArrests
 
-factorsIris <- unlist(lapply(iris, is.factor))  
-irisFactor <- iris[ , factorsIris]
-str(irisFactor)
-
-iris_dummy <- acm.disjonctif(irisFactor) # não sei porque está dando erro
-
-# Frequência de fatores
-
-Gênero <- factor(c("F", "M", "F", "M", "F", "M", "M", "M", "M"))
-levels(Gênero)
-
-Idade <- c(57, 50, 87, 86, 76, 75, 26, 23, 21)
-
-Nome <- c("Lêda", "Emerson", "Arlette", "Leal", "Udjanir", "Enock", "Victor", "Caio", "Gabriel")
-
-Nascimento <- factor(c("AL", "RJ", "AM", "AL", "RJ", "SE", "AL", "AL", "AL"))
-levels(Nascimento)
-
-Nível <- factor(c("Mãe", "Pai", "Avó", "Avô", "Avó", "Avô", "Filho", "Filho", "Filho"))
-
-Familia <- data.frame(Nome, Idade, Nascimento, Gênero, Nível)
-
-library(forcats)
-
-fct_lump(Familia$Nível, n = 2)
+factorsUSArrests <- unlist(lapply(USArrests, is.factor))  
+USArrestsFactor <- USArrests[ , factorsUSArrests]
+str(USArrests)
 
 
+
+# conversão em fatores
+
+for(i in 4:11) {USArrests[,3] <- as.factor(USArrests[,2]) } 
+
+
+# filtro por tipo de dado
+
+factorsUSArrests <- unlist(lapply(USArrests, is.factor))  
+USArrestsFactor <- USArrests[ , factorsUSArrests]
+str(USArrestsFactor)
+
+# One Hot Encoding
+USArrestsDummy <- acm.disjonctif(USArrestsFactor)
+
+# Discretização
+inteirosUSArrests <- unlist(lapply(USArrests, is.integer))  
+USArrestsInteiros <- USArrests[, inteirosUSArrests]
+str(USArrestsInteiros)
+
+USArrestsInteiros$ <- discretize(USArrestsInteiros$Murder, method = "interval", breaks = 3, labels = c("poucos", 'médio', 'muitos'))
+
+# forcats - usando tidyverse para fatores
+library(tidyverse)
+fct_count(USArrestsFactor$Murder) # conta os fatores
+
+fct_anon(USArrestsFactor$Murder) # anonimiza os fatores
+
+fct_lump(USArrestsFactor$Murder, n = 1) # reclassifica os fatores em mais comum e outros
