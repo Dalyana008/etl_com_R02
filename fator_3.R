@@ -1,0 +1,51 @@
+# etl na prática
+# mais fatores
+
+install.packages('ade4')
+install.packages('arules')
+
+library(ade4)
+library(arules)
+library(orcats)
+library(dplyr)  
+
+
+# visualização da base de dados utilizada 
+View(USArrests)
+
+# carregando a base de dados 
+USArrests <- USArrests
+
+# observando a estrutura 
+str(USArrests)
+
+# conversão em fatores
+
+for(i in 3:6)
+{USArrests[,i] <- as.factor(USArrests[,i]) } 
+
+str(USArrests)
+
+# filtro por tipo de dado
+
+factorUsarrests <- unlist(lapply(USArrests, is.factor))  
+UsarrestsFactor <- USArrests[ , factorUsarrests]
+str(UsarrestsFactor)
+
+# One Hot Encoding
+facebookDummy <- acm.disjonctif(facebookFactor)
+
+# Discretização
+inteirosUsarrests <- unlist(lapply(USArrests, is.integer))  
+UsarrestsInteiros <- USArrests[, inteirosUsarrests]
+str(UsarrestsInteiros)
+
+UsarrestsInteiros$assalt <- discretize(USArrestsInteiros$assalt, method = "interval", breaks = 3, labels = c("poucos", 'médio', 'muitos'))
+
+# forcats - usando tidyverse para fatores
+fct_count(UsarrestsFactor$Rape) # conta os fatores
+
+fct_anon(UsarrestsFactor$Rape) # anonimiza os fatores
+
+fct_lump(UsarrestsFactor$Rape, n = 1) # reclassifica os fatores em mais comum e outros
+
